@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css"
+        integrity="sha512-t7Few9xlddEmgd3oKZQahkNI4dS6l80+eGEzFQiqtyVYdvcSG2D3Iub77R20BdotfRPA9caaRkg1tyaJiPmO0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts para estilo oriental -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="style.css">
+    <title>Contato - Lâminas do Destino Sob a Lua</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <a id="top"></a>
+
+    <!-- NavBar Elegante -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-moon-stars-fill"></i>
+                Lâminas do Destino
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#inicio">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#historia">História</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Mais</a>
+                        <ul class="dropdown-menu" style="background: var(--lunar-dark); border-color: var(--lunar-gold);">
+                            <li><a class="dropdown-item" href="#" style="color: #b0b0b0;">Galeria</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #b0b0b0;">Sobre</a></li>
+                            <li><hr class="dropdown-divider" style="border-color: var(--lunar-gold);"></li>
+                            <li><a class="dropdown-item" href="contato.html" style="color: #b0b0b0;">Contato</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-lunar btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="bi bi-door-open"></i> Entrar
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Jumbotron de Contato -->
+    <section class="jumbotron-epic">
+        <div class="container-main container">
+            <h1 style="margin-top: 2rem;">
+                <i class="bi bi-envelope-heart-fill"></i> Entre em Contato
+            </h1>
+            <p class="lead">
+                Tem uma pergunta sobre a jornada nas Lâminas do Destino? Quer compartilhar suas teorias?
+                Envie sua mensagem e faça parte desta comunidade mística!
+            </p>
+        </div>
+    </section>
+
+    <main class="container-main container py-5">
+
+        <!-- Seção de Contato -->
+        <section class="contact-section">
+            <div class="form-success" id="successMessage">
+                <i class="bi bi-check-circle-fill"></i> Mensagem enviada com sucesso! Obrigado por se conectar conosco. 🌙
+            </div>
+
+            <form class="form-contact" id="contactForm" onsubmit="handleContactForm(event)">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="contactName" class="form-label">
+                            <i class="bi bi-person-fill"></i> Nome
+                        </label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="contactName" 
+                            placeholder="Seu nome completo" 
+                            required
+                        >
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="contactEmail" class="form-label">
+                            <i class="bi bi-envelope-fill"></i> Email
+                        </label>
+                        <input 
+                            type="email" 
+                            class="form-control" 
+                            id="contactEmail" 
+                            placeholder="seu@email.com" 
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="contactSubject" class="form-label">
+                        <i class="bi bi-chat-heart-fill"></i> Assunto
+                    </label>
+                    <select class="form-control" id="contactSubject" required>
+                        <option value="" disabled selected>Escolha um assunto...</option>
+                        <option value="duvida">📚 Dúvida sobre a História</option>
+                        <option value="teoria">🔮 Compartilhar Teoria/Especulação</option>
+                        <option value="sugestao">💡 Sugestão de Conteúdo</option>
+                        <option value="parceria">🤝 Oportunidade de Parceria</option>
+                        <option value="outro">✨ Outro Assunto</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="contactMessage" class="form-label">
+                        <i class="bi bi-chat-dots-fill"></i> Mensagem
+                    </label>
+                    <textarea 
+                        class="form-control" 
+                        id="contactMessage" 
+                        placeholder="Conte-nos sua história, dúvida ou pensamento..." 
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-contact">
+                    <i class="bi bi-send-fill"></i> Enviar Mensagem
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Modal de Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-lunar">
+                <div class="modal-header modal-header-lunar">
+                    <h5 class="modal-title">
+                        <i class="bi bi-moon-stars-fill"></i> Portal do Destino
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="padding: 2rem;">
+                    <form class="form-lunar" id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                <i class="bi bi-envelope-fill"></i> Email
+                            </label>
+                            <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                <i class="bi bi-lock-fill"></i> Senha
+                            </label>
+                            <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="rememberMe" style="border-color: var(--lunar-gold);">
+                            <label class="form-check-label" for="rememberMe" style="color: var(--lunar-silver);">
+                                Lembrar-me nesta jornada
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-lunar w-100 mb-2">
+                            <i class="bi bi-door-open"></i> Entrar no Destino
+                        </button>
+
+                        <div style="text-align: center; margin-top: 1.5rem;">
+                            <p style="color: var(--lunar-silver); font-size: 0.9rem;">
+                                Primeira vez aqui?
+                                <a href="#" style="color: var(--lunar-gold); text-decoration: none; font-weight: 600;">
+                                    Crie sua conta
+                                </a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Elegante -->
+    <footer class="footer-lunar mt-auto">
+        <div class="container-main container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">
+                        <i class="bi bi-globe"></i> Redes Sociais
+                    </h5>
+                    <div>
+                        <a href="https://facebook.com" target="_blank" class="social-icon" title="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="social-icon" title="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" class="social-icon" title="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="https://github.com" target="_blank" class="social-icon" title="GitHub">
+                            <i class="bi bi-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">
+                        <i class="bi bi-link-45deg"></i> Links Rápidos
+                    </h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="index.html#historia">Sobre a História</a></li>
+                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Fazer Login</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="mb-3">
+                        <i class="bi bi-envelope-open"></i> Contato
+                    </h5>
+                    <p style="margin: 0; font-size: 0.9rem;">
+                        Email: <a href="mailto:contato@laminasdodestino.com" style="color: var(--lunar-gold);">contato@laminasdodestino.com</a>
+                    </p>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--lunar-gold); margin: 2rem 0 1rem;">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                    <p style="margin: 0; font-size: 0.9rem;">
+                        © 2026 <span style="color: var(--lunar-gold); font-weight: 700;">Lâminas do Destino Sob a Lua</span>
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#top" style="color: var(--lunar-gold); text-decoration: none; font-weight: 600;">
+                        <i class="bi bi-arrow-up-circle-fill"></i> Voltar ao Topo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"
+        integrity="sha512-HvOjJrdwNpDbkGJIG2ZNqDlVqMo77qbs4Me4cah0HoDrfhrbA+8SBlZn1KrvAQw7cILLPFJvdwIgphzQmMm+Pw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Script personalizado -->
+    <script>
+        // Função para tratar o login
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Validação simples
+            if (!email || !password) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            // Simula o login com mensagem personalizada
+            const username = email.split('@')[0];
+            alert(`Bem-vindo, ${username}! 🌙\n\nSua jornada nas Lâminas do Destino começou...`);
+
+            // Se marcar "Lembrar-me", salva no localStorage
+            if (rememberMe) {
+                localStorage.setItem('userEmail', email);
+                console.log('Usuário lembrado para próximas visitas.');
+            }
+
+            // Fecha o modal
+            const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+            if (loginModal) {
+                loginModal.hide();
+            }
+
+            // Limpa o formulário
+            document.getElementById('loginForm').reset();
+        }
+
+        // Carrega email salvo se existir
+        window.addEventListener('load', function() {
+            const savedEmail = localStorage.getItem('userEmail');
+            if (savedEmail) {
+                document.getElementById('email').value = savedEmail;
+            }
+        });
+
+        // Efeito de glow ao passar o mouse nos botões
+        document.querySelectorAll('.btn-lunar').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Função para tratar o formulário de contato
+        function handleContactForm(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+
+            // Validação
+            if (!name || !email || !subject || !message) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            // Exibe mensagem de sucesso
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+
+            // Limpa o formulário
+            document.getElementById('contactForm').reset();
+
+            // Esconde a mensagem após 5 segundos
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+
+            // Aqui você poderia enviar os dados para um servidor
+            console.log('Formulário enviado:', {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message
+            });
+        }
+    </script>
+</body>
+
+</html>

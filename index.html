@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css"
+        integrity="sha512-t7Few9xlddEmgd3oKZQahkNI4dS6l80+eGEzFQiqtyVYdvcSG2D3Iub77R20BdotfRPA9caaRkg1tyaJiPmO0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts para estilo oriental -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="style.css">
+    <title>Lâminas do Destino Sob a Lua</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <a id="top"></a>
+
+    <!-- NavBar Elegante -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-moon-stars-fill"></i>
+                Lâminas do Destino
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#inicio">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#historia">História</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Mais</a>
+                        <ul class="dropdown-menu" style="background: var(--lunar-dark); border-color: var(--lunar-gold);">
+                            <li><a class="dropdown-item" href="#" style="color: #b0b0b0;">Galeria</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #b0b0b0;">Sobre</a></li>
+                            <li><hr class="dropdown-divider" style="border-color: var(--lunar-gold);"></li>
+                            <li><a class="dropdown-item" href="#" style="color: #b0b0b0;">Contato</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-lunar btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="bi bi-door-open"></i> Entrar
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Jumbotron Épico -->
+    <section class="jumbotron-epic">
+        <div class="container-main container">
+            <h1 id="inicio" style="margin-top: 2rem;">Lâminas do Destino Sob a Lua</h1>
+            <p class="lead">
+                Em uma cidade moderna erguida sobre ruínas de antigos clãs orientais, o passado nunca dorme.
+                Quando forças ancestrais despertam, jovens marcados pelo destino entram em uma guerra invisível entre mundos.
+            </p>
+            <button class="btn btn-lunar" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <i class="bi bi-play-fill"></i> Começar Jornada
+            </button>
+        </div>
+    </section>
+
+    <main class="container-main container py-5">
+
+        <!-- Carrossel Épico -->
+        <div id="carouselEpic" class="carousel carousel-epic slide" data-bs-ride="carousel">
+            <!-- Indicadores -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselEpic" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#carouselEpic" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carouselEpic" data-bs-slide-to="2"></button>
+                <button type="button" data-bs-target="#carouselEpic" data-bs-slide-to="3"></button>
+            </div>
+
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="img/ani1.png" alt="A Cicatriz Sob a Lua" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/ani2.png" alt="Clãs e Poder" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/ani3.png" alt="Magia Ancestral" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/ani4.png" alt="Destino Entrelançado" class="d-block w-100">
+                </div>
+
+                <!-- Controles -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselEpic" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselEpic" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <section class="main-content">
+            <h2 id="historia">Gêneros & História</h2>
+
+            <!-- Tags de Gênero -->
+            <div class="genre-tags">
+                <span class="genre-tag">⚔️ Ação</span>
+                <span class="genre-tag">🏙️ Fantasia Urbana</span>
+                <span class="genre-tag">✨ Cultivo</span>
+                <span class="genre-tag">💔 Drama</span>
+            </div>
+
+            <h3>Sinopse</h3>
+            <p>
+                Em uma cidade moderna erguida sobre ruínas de antigos clãs orientais, o passado nunca dorme. Quando
+                forças ancestrais despertam sob a lua, jovens marcados pelo destino são puxados para uma guerra
+                invisível entre mundos. Entre espadas, relâmpagos e pactos esquecidos, apenas quem aceitar o próprio
+                legado poderá sobreviver.
+            </p>
+
+            <h3>Capítulo 1 — A Cicatriz Sob a Lua</h3>
+            <p>
+                A lua cheia iluminava o bairro antigo como um presságio silencioso. As lanternas tremulavam enquanto Jin
+                Kurogawa caminhava sozinho pela rua estreita, o rosto sério e a cicatriz ainda fresca escorrendo pelo
+                lado do olho esquerdo.
+            </p>
+
+            <p>
+                O som de passos ecoou atrás dele. Uma voz sussurrou entre as sombras, quase inaudível:
+            </p>
+
+            <p style="border-left: 3px solid var(--lunar-gold); padding-left: 1.5rem; font-style: italic; color: var(--lunar-silver);">
+                "Ele está aqui..."
+            </p>
+
+            <p>
+                Jin apertou o cabo da espada curta escondida sob o casaco. Em um piscar de olhos, guerreiros do antigo
+                Clã da Guarda surgiram das sombras, armados e determinados, seus olhos brilhando com um estranho poder.
+            </p>
+
+            <p>
+                — Você carrega o selo do Décimo Dia — disse o líder, sua voz reverberando através da rua vazia. — Por isso deve morrer.
+            </p>
+
+            <p>
+                A lâmina de Jin cortou o ar com um som silvante. O choque das espadas quebrou o silêncio da noite como
+                trovão. Quando tudo terminou, ele ficou de pé, ofegante e ensanguentado, enquanto os inimigos recuavam
+                nas sombras.
+            </p>
+
+            <p style="border-left: 3px solid var(--lunar-gold); padding-left: 1.5rem; font-style: italic; color: var(--lunar-silver);">
+                "Se o destino me quer morto... — disse ele, olhando para a lua cheia — então terá que lutar comigo."
+            </p>
+
+            <p style="text-align: center; margin-top: 2.5rem;">
+                <button class="btn btn-lunar" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="bi bi-book-fill"></i> Ler Mais Capítulos
+                </button>
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Modal de Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-lunar">
+                <div class="modal-header modal-header-lunar">
+                    <h5 class="modal-title">
+                        <i class="bi bi-moon-stars-fill"></i> Portal do Destino
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="padding: 2rem;">
+                    <form class="form-lunar" id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                <i class="bi bi-envelope-fill"></i> Email
+                            </label>
+                            <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                <i class="bi bi-lock-fill"></i> Senha
+                            </label>
+                            <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="rememberMe" style="border-color: var(--lunar-gold);">
+                            <label class="form-check-label" for="rememberMe" style="color: var(--lunar-silver);">
+                                Lembrar-me nesta jornada
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-lunar w-100 mb-2">
+                            <i class="bi bi-door-open"></i> Entrar no Destino
+                        </button>
+
+                        <div style="text-align: center; margin-top: 1.5rem;">
+                            <p style="color: var(--lunar-silver); font-size: 0.9rem;">
+                                Primeira vez aqui?
+                                <a href="#" style="color: var(--lunar-gold); text-decoration: none; font-weight: 600;">
+                                    Crie sua conta
+                                </a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Elegante -->
+    <footer class="footer-lunar mt-auto">
+        <div class="container-main container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">
+                        <i class="bi bi-globe"></i> Redes Sociais
+                    </h5>
+                    <div>
+                        <a href="https://facebook.com" target="_blank" class="social-icon" title="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="social-icon" title="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" class="social-icon" title="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="https://github.com" target="_blank" class="social-icon" title="GitHub">
+                            <i class="bi bi-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">
+                        <i class="bi bi-link-45deg"></i> Links Rápidos
+                    </h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="#historia">Sobre a História</a></li>
+                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Fazer Login</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="mb-3">
+                        <i class="bi bi-envelope-open"></i> Contato
+                    </h5>
+                    <p style="margin: 0; font-size: 0.9rem;">
+                        Email: <a href="mailto:contato@laminasdodestino.com" style="color: var(--lunar-gold);">contato@laminasdodestino.com</a>
+                    </p>
+                </div>
+            </div>
+
+            <hr style="border-color: var(--lunar-gold); margin: 2rem 0 1rem;">
+
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                    <p style="margin: 0; font-size: 0.9rem;">
+                        © 2026 <span style="color: var(--lunar-gold); font-weight: 700;">Lâminas do Destino Sob a Lua</span>
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#top" style="color: var(--lunar-gold); text-decoration: none; font-weight: 600;">
+                        <i class="bi bi-arrow-up-circle-fill"></i> Voltar ao Topo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"
+        integrity="sha512-HvOjJrdwNpDbkGJIG2ZNqDlVqMo77qbs4Me4cah0HoDrfhrbA+8SBlZn1KrvAQw7cILLPFJvdwIgphzQmMm+Pw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Script personalizado -->
+    <script>
+        // Efeito de entrada suave
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adiciona classe aos elementos para animação
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.style.animation = 'fade-in-up 1.4s ease-out';
+            }
+        });
+
+        // Função para tratar o login
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Validação simples
+            if (!email || !password) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            // Simula o login com mensagem personalizada
+            const username = email.split('@')[0];
+            alert(`Bem-vindo, ${username}! 🌙\n\nSua jornada nas Lâminas do Destino começou...`);
+
+            // Se marcar "Lembrar-me", salva no localStorage
+            if (rememberMe) {
+                localStorage.setItem('userEmail', email);
+                console.log('Usuário lembrado para próximas visitas.');
+            }
+
+            // Fecha o modal
+            const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+            if (loginModal) {
+                loginModal.hide();
+            }
+
+            // Limpa o formulário
+            document.getElementById('loginForm').reset();
+        }
+
+        // Carrega email salvo se existir
+        window.addEventListener('load', function() {
+            const savedEmail = localStorage.getItem('userEmail');
+            if (savedEmail) {
+                document.getElementById('email').value = savedEmail;
+            }
+        });
+
+        // Animação suave ao scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efeito de glow ao passar o mouse nos botões
+        document.querySelectorAll('.btn-lunar').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+
+</html>

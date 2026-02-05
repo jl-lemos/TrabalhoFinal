@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
     <!-- Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
@@ -22,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- CSS Externo -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Lâminas do Destino Sob a Lua</title>
 </head>
 
@@ -50,6 +53,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item" id="navPerfil" style="display: none;">
+                        <a class="nav-link" href="/perfil" style="color: #d4af37;">👤 Meu Perfil</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Mais</a>
@@ -315,46 +321,93 @@
         });
 
         // Função para tratar o login
-        function handleLogin(event) {
+        async function handleLogin(event) {
             event.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
 
-            // Validação simples
             if (!email || !password) {
                 alert('Por favor, preencha todos os campos.');
                 return;
             }
 
-            // Simula o login com mensagem personalizada
-            const username = email.split('@')[0];
-            alert(`Bem-vindo, ${username}! 🌙\n\nSua jornada nas Lâminas do Destino começou...`);
+            try {
+                const resposta = await fazerRequisicao('/auth/login', 'POST', { email, password });
 
-            // Se marcar "Lembrar-me", salva no localStorage
-            if (rememberMe) {
-                localStorage.setItem('userEmail', email);
-                console.log('Usuário lembrado para próximas visitas.');
+                if (resposta.sucesso) {
+                    // Salvar token e ID do usuário
+                    localStorage.setItem('token', resposta.usuario.token);
+                    localStorage.setItem('usuarioId', resposta.usuario.id);
+                    localStorage.setItem('usuarioNome', resposta.usuario.nome);
+                    
+                    // Mostrar link do perfil na navbar
+                    document.getElementById('navPerfil').style.display = 'block';
+                    
+                    // Mensagem de sucesso
+                    alert(`✨ Bem-vindo, ${resposta.usuario.nome}! Sua jornada nas Lâminas do Destino começou...`);
+
+                    // Fecha o modal
+                    const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                    if (loginModal) {
+                        loginModal.hide();
+                    }
+
+                    // Limpa o formulário
+                    document.getElementById('loginForm').reset();
+                    
+                    // Redireciona para perfil após 2 segundos
+                    setTimeout(() => {
+                        window.location.href = '/perfil';
+                    }, 2000);
+                } else {
+                    alert('❌ ' + resposta.mensagem);
+                }
+            } catch (erro) {
+                // Se falhar, oferecer criação de conta
+                const criar = confirm('Usuário não encontrado. Deseja criar uma conta?');
+                if (criar) {
+                    await criarConta(email, password);
+                }
             }
-
-            // Fecha o modal
-            const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-            if (loginModal) {
-                loginModal.hide();
-            }
-
-            // Limpa o formulário
-            document.getElementById('loginForm').reset();
         }
 
-        // Carrega email salvo se existir
-        window.addEventListener('load', function() {
-            const savedEmail = localStorage.getItem('userEmail');
-            if (savedEmail) {
-                document.getElementById('email').value = savedEmail;
+        // Função para criar conta
+        async function criarConta(email, password) {
+            const nome = prompt('Qual é seu nome?');
+            if (!nome) return;
+
+            try {
+                const resposta = await fazerRequisicao('/auth/registrar', 'POST', { 
+                    email, 
+                    senha: password,
+                    nome 
+                });
+
+                if (resposta.sucesso) {
+                    localStorage.setItem('token', resposta.usuario.token);
+                    localStorage.setItem('usuarioId', resposta.usuario.id);
+                    localStorage.setItem('usuarioNome', resposta.usuario.nome);
+                    
+                    document.getElementById('navPerfil').style.display = 'block';
+                    
+                    alert(`🎉 Bem-vindo aos Lâminas do Destino, ${nome}!`);
+                    
+                    const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                    if (loginModal) {
+                        loginModal.hide();
+                    }
+                    
+                    document.getElementById('loginForm').reset();
+                    
+                    setTimeout(() => {
+                        window.location.href = '/perfil';
+                    }, 2000);
+                }
+            } catch (erro) {
+                alert('❌ Erro ao criar conta: ' + erro.message);
             }
-        });
+        }
 
         // Animação suave ao scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

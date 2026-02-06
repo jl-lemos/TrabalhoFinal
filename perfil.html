@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - Lâminas do Destino</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Animações do Perfil */
+        @keyframes avatar-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.8); }
+        }
+
+        @keyframes slide-in-left {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slide-in-right {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .perfil-container {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .avatar-profile {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #d4af37;
+            animation: avatar-glow 3s ease-in-out infinite;
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .perfil-header {
+            background: rgba(26, 31, 58, 0.8);
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: slide-in-left 0.8s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .perfil-nome {
+            color: #d4af37;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            animation: slide-in-right 0.8s ease-out 0.1s both;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .titulo-usuario {
+            color: #c0c0c0;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            animation: slide-in-right 0.8s ease-out 0.2s both;
+        }
+
+        .bio-usuario {
+            color: #a0a0a0;
+            font-size: 1rem;
+            margin-top: 1rem;
+            max-width: 500px;
+            animation: slide-in-right 0.8s ease-out 0.3s both;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(61, 26, 71, 0.1) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            border-color: #d4af37;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            transform: scale(1.05);
+        }
+
+        .stat-numero {
+            color: #d4af37;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nivel-card {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            color: #0a0e27;
+            animation: pulse-scale 2s ease-in-out infinite;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .nivel-numero {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .xp-bar {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            height: 20px;
+            margin-top: 1rem;
+            overflow: hidden;
+            border: 2px solid rgba(0, 0, 0, 0.5);
+        }
+
+        .xp-progress {
+            background: linear-gradient(90deg, #d4af37, #ffd700);
+            height: 100%;
+            border-radius: 8px;
+            animation: shimmer 3s linear infinite;
+            background-size: 1000px 100%;
+            transition: width 0.5s ease;
+        }
+
+        .conquista-card {
+            background: rgba(26, 31, 58, 0.8);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .conquista-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .conquista-icone {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: spin-slow 4s linear infinite;
+        }
+
+        .conquista-titulo {
+            color: #d4af37;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .narrativa-card {
+            background: rgba(26, 31, 58, 0.9);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .narrativa-card:hover {
+            border-color: #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .narrativa-titulo {
+            color: #d4af37;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .narrativa-conteudo {
+            color: #a0a0a0;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .narrativa-stats {
+            display: flex;
+            gap: 1rem;
+            color: #c0c0c0;
+            font-size: 0.9rem;
+        }
+
+        .btn-epic {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            color: #0a0e27;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-epic:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            color: #0a0e27;
+        }
+
+        .btn-epic:active {
+            transform: translateY(0);
+        }
+
+        .section-title {
+            color: #d4af37;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 1rem;
+            animation: slide-in-left 0.8s ease-out;
+        }
+
+        .modal-lunar {
+            background: rgba(10, 14, 39, 0.95);
+        }
+
+        .modal-header-lunar {
+            border-bottom: 2px solid #d4af37;
+            background: rgba(26, 31, 58, 0.8);
+        }
+
+        .modal-body {
+            background: rgba(10, 14, 39, 0.9);
+        }
+
+        .form-control-lunar {
+            background: rgba(26, 31, 58, 0.8);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            color: #a0a0a0;
+        }
+
+        .form-control-lunar:focus {
+            background: rgba(26, 31, 58, 0.8);
+            border-color: #d4af37;
+            color: #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .navbar-perfil {
+            background: rgba(10, 14, 39, 0.95);
+            border-bottom: 2px solid #d4af37;
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .conectado-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background: #4ade80;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+        }
+    </style>
+</head>
+
+<body class="perfil-container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark navbar-expand-lg navbar-perfil">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-suit-spade-fill" style="color: #d4af37; font-size: 1.5rem;"></i> Lâminas do Destino
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-warning" id="btnLogout">Sair</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <!-- Cabeçalho do Perfil -->
+        <div class="perfil-header">
+            <div class="row align-items-center">
+                <div class="col-md-2 text-center position-relative">
+                    <img id="avatarUsuario" src="https://via.placeholder.com/150?text=Avatar" alt="Avatar"
+                        class="avatar-profile">
+                    <div class="conectado-badge"></div>
+                </div>
+                <div class="col-md-10">
+                    <div class="perfil-nome" id="nomeUsuario">Carregando...</div>
+                    <div class="titulo-usuario" id="tituloUsuario">Iniciante</div>
+                    <div class="bio-usuario" id="bioUsuario">Explorador das Lâminas do Destino</div>
+                    <button class="btn btn-epic mt-3" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">
+                        <i class="bi bi-pencil"></i> Editar Perfil
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="row mt-5">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-numero" id="nivelUsuario">1</div>
+                    <div class="stat-label">Nível</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-numero" id="narrativasCount">0</div>
+                    <div class="stat-label">Narrativas</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-numero" id="curtidosCount">0</div>
+                    <div class="stat-label">Curtidas Recebidas</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-numero" id="seguidoresCount">0</div>
+                    <div class="stat-label">Seguidores</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nível e XP -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="nivel-card">
+                    <div class="nivel-numero" id="nivelDisplay">1</div>
+                    <p style="text-align: center; margin: 0.5rem 0;">Próximo Nível</p>
+                    <div class="xp-bar">
+                        <div class="xp-progress" id="xpProgress" style="width: 0%"></div>
+                    </div>
+                    <p style="text-align: center; margin-top: 0.5rem; font-size: 0.9rem;">
+                        <span id="xpAtual">0</span> / <span id="xpProximo">100</span> XP
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conquistas -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2 class="section-title">🏆 Conquistas</h2>
+                <div id="conquistasContainer" class="row">
+                    <p style="color: #a0a0a0; text-align: center;">Nenhuma conquista desbloqueada ainda</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Narrativas -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2 class="section-title">📖 Minhas Narrativas</h2>
+                <button class="btn btn-epic mb-3" data-bs-toggle="modal" data-bs-target="#modalNovanarrativa">
+                    <i class="bi bi-plus-circle"></i> Nova Narrativa
+                </button>
+                <div id="narrativasContainer">
+                    <p style="color: #a0a0a0; text-align: center;">Nenhuma narrativa criada ainda</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - Editar Perfil -->
+    <div class="modal fade" id="modalEditarPerfil" tabindex="-1">
+        <div class="modal-dialog modal-lunar">
+            <div class="modal-content modal-lunar">
+                <div class="modal-header modal-header-lunar">
+                    <h5 class="modal-title" style="color: #d4af37;">✨ Editar Perfil</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarPerfil">
+                        <div class="mb-3">
+                            <label class="form-label" style="color: #d4af37;">Nome</label>
+                            <input type="text" class="form-control form-control-lunar" id="inputNome">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: #d4af37;">Bio</label>
+                            <textarea class="form-control form-control-lunar" id="inputBio" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-epic w-100">Salvar Alterações</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - Nova Narrativa -->
+    <div class="modal fade" id="modalNovanarrrativa" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-lunar">
+            <div class="modal-content modal-lunar">
+                <div class="modal-header modal-header-lunar">
+                    <h5 class="modal-title" style="color: #d4af37;">📝 Criar Narrativa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNovanarrrativa">
+                        <div class="mb-3">
+                            <label class="form-label" style="color: #d4af37;">Título</label>
+                            <input type="text" class="form-control form-control-lunar" id="inputTitulo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: #d4af37;">Gênero</label>
+                            <select class="form-control form-control-lunar" id="inputGenero">
+                                <option value="ficção">Ficção</option>
+                                <option value="fantasia">Fantasia</option>
+                                <option value="mistério">Mistério</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" style="color: #d4af37;">Conteúdo</label>
+                            <textarea class="form-control form-control-lunar" id="inputConteudo" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-epic w-100">Publicar Narrativa</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+
+        // Carregar perfil ao entrar na página
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                window.location.href = '/';
+                return;
+            }
+
+            await carregarPerfil(token);
+            await carregarNarrativas(token);
+            await carregarNivel(token);
+        });
+
+        // Carregar perfil
+        async function carregarPerfil(token) {
+            try {
+                const response = await fetch(`${API_URL}/auth/perfil`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+
+                if (data.sucesso) {
+                    const usuario = data.usuario;
+                    document.getElementById('nomeUsuario').textContent = usuario.nome;
+                    document.getElementById('tituloUsuario').textContent = usuario.titulo;
+                    document.getElementById('bioUsuario').textContent = usuario.bio;
+                    document.getElementById('avatarUsuario').src = usuario.avatar;
+                    document.getElementById('narrativasCount').textContent = usuario.estatisticas?.narrativas_criadas || 0;
+                    document.getElementById('curtidosCount').textContent = usuario.estatisticas?.narrativas_curtidas || 0;
+                    document.getElementById('seguidoresCount').textContent = usuario.estatisticas?.seguidores || 0;
+
+                    document.getElementById('inputNome').value = usuario.nome;
+                    document.getElementById('inputBio').value = usuario.bio;
+                } else {
+                    alert('Erro ao carregar perfil');
+                }
+            } catch (erro) {
+                console.error('Erro ao carregar perfil:', erro);
+            }
+        }
+
+        // Carregar narrativas
+        async function carregarNarrativas(token) {
+            try {
+                const usuarioId = localStorage.getItem('usuarioId');
+                const response = await fetch(`${API_URL}/usuarios/${usuarioId}/narrativas`);
+                const data = await response.json();
+
+                if (data.sucesso && data.narrativas.length > 0) {
+                    const container = document.getElementById('narrativasContainer');
+                    container.innerHTML = data.narrativas.map(n => `
+                        <div class="narrativa-card">
+                            <div class="narrativa-titulo">${n.titulo}</div>
+                            <div class="narrativa-conteudo">${n.conteudo.substring(0, 100)}...</div>
+                            <div class="narrativa-stats">
+                                <span>❤️ ${n.curtidas} curtidas</span>
+                                <span>💬 ${n.comentarios} comentários</span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (erro) {
+                console.error('Erro ao carregar narrativas:', erro);
+            }
+        }
+
+        // Carregar nível
+        async function carregarNivel(token) {
+            try {
+                const usuarioId = localStorage.getItem('usuarioId');
+                const response = await fetch(`${API_URL}/usuarios/${usuarioId}/nivel`);
+                const data = await response.json();
+
+                if (data.sucesso) {
+                    document.getElementById('nivelDisplay').textContent = data.nivel;
+                    document.getElementById('nivelUsuario').textContent = data.nivel;
+                    document.getElementById('xpAtual').textContent = data.experiencia;
+                    document.getElementById('xpProximo').textContent = (data.nivel * 100);
+                    document.getElementById('xpProgress').style.width = data.progresso + '%';
+                }
+            } catch (erro) {
+                console.error('Erro ao carregar nível:', erro);
+            }
+        }
+
+        // Editar perfil
+        document.getElementById('formEditarPerfil')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            const nome = document.getElementById('inputNome').value;
+            const bio = document.getElementById('inputBio').value;
+
+            try {
+                const response = await fetch(`${API_URL}/auth/perfil`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nome, bio })
+                });
+
+                const data = await response.json();
+
+                if (data.sucesso) {
+                    alert('✨ Perfil atualizado com sucesso!');
+                    bootstrap.Modal.getInstance(document.getElementById('modalEditarPerfil')).hide();
+                    location.reload();
+                } else {
+                    alert('Erro ao atualizar perfil');
+                }
+            } catch (erro) {
+                console.error('Erro:', erro);
+            }
+        });
+
+        // Nova narrativa
+        document.getElementById('formNovanarrrativa')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            const titulo = document.getElementById('inputTitulo').value;
+            const conteudo = document.getElementById('inputConteudo').value;
+            const genero = document.getElementById('inputGenero').value;
+
+            try {
+                const response = await fetch(`${API_URL}/usuarios/narrativas`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ titulo, conteudo, genero })
+                });
+
+                const data = await response.json();
+
+                if (data.sucesso) {
+                    alert('📖 Narrativa publicada com sucesso! +50 XP');
+                    location.reload();
+                } else {
+                    alert('Erro ao publicar narrativa');
+                }
+            } catch (erro) {
+                console.error('Erro:', erro);
+            }
+        });
+
+        // Logout
+        document.getElementById('btnLogout')?.addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuarioId');
+            window.location.href = '/';
+        });
+    </script>
+</body>
+
+</html>

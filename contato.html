@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
     <!-- Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
@@ -22,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- CSS Externo -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Contato - Lâminas do Destino Sob a Lua</title>
 </head>
 
@@ -273,6 +276,9 @@
         integrity="sha512-HvOjJrdwNpDbkGJIG2ZNqDlVqMo77qbs4Me4cah0HoDrfhrbA+8SBlZn1KrvAQw7cILLPFJvdwIgphzQmMm+Pw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!-- API Script -->
+    <script src="js/api.js"></script>
+
     <!-- Script personalizado -->
     <script>
         // Função para tratar o login
@@ -327,40 +333,55 @@
             });
         });
 
-        // Função para tratar o formulário de contato
-        function handleContactForm(event) {
+        // Função para tratar o formulário de contato com API
+        async function handleContactForm(event) {
             event.preventDefault();
 
-            const name = document.getElementById('contactName').value;
+            const nome = document.getElementById('contactName').value;
             const email = document.getElementById('contactEmail').value;
-            const subject = document.getElementById('contactSubject').value;
-            const message = document.getElementById('contactMessage').value;
+            const assunto = document.getElementById('contactSubject').value;
+            const mensagem = document.getElementById('contactMessage').value;
 
-            // Validação
-            if (!name || !email || !subject || !message) {
-                alert('Por favor, preencha todos os campos.');
-                return;
+            try {
+                // Fazer requisição à API
+                const resposta = await fazerRequisicao('/contact/enviar', 'POST', {
+                    nome,
+                    email,
+                    assunto,
+                    mensagem
+                });
+
+                if (resposta.sucesso) {
+                    // Exibir mensagem de sucesso
+                    const successMessage = document.getElementById('successMessage');
+                    successMessage.classList.add('show');
+                    successMessage.innerHTML = `
+                        <i class="bi bi-check-circle-fill"></i> ${resposta.mensagem}
+                    `;
+
+                    // Limpar formulário
+                    document.getElementById('contactForm').reset();
+
+                    // Esconder mensagem após 5 segundos
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                }
+            } catch (erro) {
+                // Mostrar erro
+                const successMessage = document.getElementById('successMessage');
+                successMessage.classList.add('show');
+                successMessage.style.background = 'rgba(220, 53, 69, 0.1)';
+                successMessage.style.borderColor = '#dc3545';
+                successMessage.style.color = '#c0392b';
+                successMessage.innerHTML = `
+                    <i class="bi bi-exclamation-circle-fill"></i> ${erro.message || 'Erro ao enviar mensagem'}
+                `;
+
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
             }
-
-            // Exibe mensagem de sucesso
-            const successMessage = document.getElementById('successMessage');
-            successMessage.classList.add('show');
-
-            // Limpa o formulário
-            document.getElementById('contactForm').reset();
-
-            // Esconde a mensagem após 5 segundos
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 5000);
-
-            // Aqui você poderia enviar os dados para um servidor
-            console.log('Formulário enviado:', {
-                name: name,
-                email: email,
-                subject: subject,
-                message: message
-            });
         }
     </script>
 </body>

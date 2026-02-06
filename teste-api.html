@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste da API - Lâminas do Destino</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .test-container {
+            background: rgba(15, 25, 41, 0.95);
+            border-left: 5px solid var(--lunar-gold);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        .test-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4CAF50;
+        }
+        .test-result.error {
+            background: rgba(220, 53, 69, 0.1);
+            border-left-color: #dc3545;
+        }
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 5px;
+            color: #d4af37;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom" style="background: linear-gradient(90deg, var(--lunar-dark) 0%, var(--lunar-dark-blue) 100%); border-bottom: 2px solid var(--lunar-gold);">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-moon-stars-fill"></i> Lâminas do Destino
+            </a>
+        </div>
+    </nav>
+
+    <main class="container mt-5 mb-5">
+        <h1 class="text-warning mb-4">
+            <i class="bi bi-bug-fill"></i> Tester de API
+        </h1>
+
+        <!-- Teste de Conexão -->
+        <div class="test-container">
+            <h3 class="text-warning mb-3">
+                <i class="bi bi-plug-fill"></i> Teste de Conexão Email
+            </h3>
+            <button class="btn btn-warning" onclick="testarConexao()">
+                <i class="bi bi-play-fill"></i> Testar Conexão
+            </button>
+            <div id="resultadoConexao" class="test-result" style="display:none;">
+                <pre id="textConexao"></pre>
+            </div>
+        </div>
+
+        <!-- Teste de Login -->
+        <div class="test-container">
+            <h3 class="text-warning mb-3">
+                <i class="bi bi-door-open"></i> Teste de Login
+            </h3>
+            <div class="mb-3">
+                <input type="email" id="loginEmail" class="form-control" placeholder="Email" value="teste@example.com">
+            </div>
+            <div class="mb-3">
+                <input type="password" id="loginPassword" class="form-control" placeholder="Senha" value="senha123">
+            </div>
+            <button class="btn btn-warning" onclick="testarLogin()">
+                <i class="bi bi-play-fill"></i> Testar Login
+            </button>
+            <div id="resultadoLogin" class="test-result" style="display:none;">
+                <pre id="textLogin"></pre>
+            </div>
+        </div>
+
+        <!-- Teste de Contato -->
+        <div class="test-container">
+            <h3 class="text-warning mb-3">
+                <i class="bi bi-envelope-fill"></i> Teste de Formulário de Contato
+            </h3>
+            <div class="mb-3">
+                <input type="text" id="contatoNome" class="form-control" placeholder="Nome" value="João Silva">
+            </div>
+            <div class="mb-3">
+                <input type="email" id="contatoEmail" class="form-control" placeholder="Email" value="joao@example.com">
+            </div>
+            <div class="mb-3">
+                <select id="contatoAssunto" class="form-control">
+                    <option value="duvida">Dúvida</option>
+                    <option value="teoria">Teoria</option>
+                    <option value="sugestao">Sugestão</option>
+                    <option value="parceria">Parceria</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <textarea id="contatoMensagem" class="form-control" placeholder="Mensagem" rows="4">Olá, tenho uma dúvida sobre a história!</textarea>
+            </div>
+            <button class="btn btn-warning" onclick="testarContato()">
+                <i class="bi bi-play-fill"></i> Testar Contato
+            </button>
+            <div id="resultadoContato" class="test-result" style="display:none;">
+                <pre id="textContato"></pre>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-lunar mt-auto">
+        <div class="container text-center py-3">
+            <p style="color: #b0b0b0;">🌙 Página de Teste - API Lâminas do Destino</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        async function testarConexao() {
+            const div = document.getElementById('resultadoConexao');
+            const texto = document.getElementById('textConexao');
+            div.style.display = 'block';
+            texto.textContent = 'Testando...';
+
+            try {
+                const resposta = await fetch('http://localhost:5000/api/contact/test');
+                const dados = await resposta.json();
+                
+                if (resposta.ok) {
+                    texto.textContent = '✅ SUCESSO\n\n' + JSON.stringify(dados, null, 2);
+                    div.classList.remove('error');
+                } else {
+                    texto.textContent = '❌ ERRO\n\n' + JSON.stringify(dados, null, 2);
+                    div.classList.add('error');
+                }
+            } catch (erro) {
+                texto.textContent = '❌ ERRO DE CONEXÃO\n\n' + erro.message + '\n\nCertifique-se que o servidor está rodando em http://localhost:5000';
+                div.classList.add('error');
+            }
+        }
+
+        async function testarLogin() {
+            const div = document.getElementById('resultadoLogin');
+            const texto = document.getElementById('textLogin');
+            div.style.display = 'block';
+            texto.textContent = 'Testando...';
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const resposta = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const dados = await resposta.json();
+                
+                if (resposta.ok) {
+                    texto.textContent = '✅ SUCESSO\n\n' + JSON.stringify(dados, null, 2);
+                    div.classList.remove('error');
+                } else {
+                    texto.textContent = '❌ ERRO\n\n' + JSON.stringify(dados, null, 2);
+                    div.classList.add('error');
+                }
+            } catch (erro) {
+                texto.textContent = '❌ ERRO DE CONEXÃO\n\n' + erro.message;
+                div.classList.add('error');
+            }
+        }
+
+        async function testarContato() {
+            const div = document.getElementById('resultadoContato');
+            const texto = document.getElementById('textContato');
+            div.style.display = 'block';
+            texto.textContent = 'Testando...';
+
+            const nome = document.getElementById('contatoNome').value;
+            const email = document.getElementById('contatoEmail').value;
+            const assunto = document.getElementById('contatoAssunto').value;
+            const mensagem = document.getElementById('contatoMensagem').value;
+
+            try {
+                const resposta = await fetch('http://localhost:5000/api/contact/enviar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, assunto, mensagem })
+                });
+                const dados = await resposta.json();
+                
+                if (resposta.ok) {
+                    texto.textContent = '✅ SUCESSO\n\n' + JSON.stringify(dados, null, 2);
+                    div.classList.remove('error');
+                } else {
+                    texto.textContent = '❌ ERRO\n\n' + JSON.stringify(dados, null, 2);
+                    div.classList.add('error');
+                }
+            } catch (erro) {
+                texto.textContent = '❌ ERRO DE CONEXÃO\n\n' + erro.message;
+                div.classList.add('error');
+            }
+        }
+    </script>
+</body>
+</html>

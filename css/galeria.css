@@ -1,0 +1,422 @@
+/* ⚔️ GALERIA - LÂMINAS DO DESTINO ⚔️ */
+
+/* ===== CARDS DE NARRATIVAS ===== */
+.card-narrativa {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border: 2px solid #FFD700;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.1);
+}
+
+.card-narrativa:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(255, 215, 0, 0.3);
+    border-color: #FFA500;
+}
+
+.card-narrativa .card-header {
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-narrativa .card-header h5 {
+    margin: 0;
+    color: #000;
+    font-weight: bold;
+    flex-grow: 1;
+}
+
+.badge-genero {
+    background: rgba(255, 215, 0, 0.2);
+    color: #FFD700;
+    border: 1px solid #FFD700;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    margin-left: auto;
+}
+
+/* ===== AUTOR INFO ===== */
+.autor-info {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: rgba(255, 215, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.autor-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #FFD700;
+}
+
+.autor-detalhes {
+    flex-grow: 1;
+}
+
+.autor-nome {
+    font-weight: bold;
+    color: #FFD700;
+    margin: 0;
+    display: block;
+}
+
+.autor-data {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 0;
+    display: block;
+}
+
+/* ===== CONTEÚDO DA NARRATIVA ===== */
+.card-narrativa .card-body {
+    padding: 15px;
+    min-height: 120px;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.card-narrativa .card-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-narrativa .card-body::-webkit-scrollbar-track {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.card-narrativa .card-body::-webkit-scrollbar-thumb {
+    background: #FFD700;
+    border-radius: 3px;
+}
+
+.card-narrativa .card-body::-webkit-scrollbar-thumb:hover {
+    background: #FFA500;
+}
+
+.conteudo-narrativa {
+    color: #ddd;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ===== FOOTER DO CARD (CURTIDAS E COMENTÁRIOS) ===== */
+.card-narrativa .card-footer {
+    background: rgba(255, 215, 0, 0.05);
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #FFD700;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+    color: #FFA500;
+    transform: scale(1.1);
+}
+
+.stat-item.curtida-ativa {
+    color: #FF1744;
+}
+
+.btn-curtir {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #FFD700;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.btn-curtir:hover {
+    background: rgba(255, 215, 0, 0.1);
+    color: #FFA500;
+}
+
+.btn-curtir.curtido {
+    color: #FF1744;
+}
+
+.btn-curtir.curtido:hover {
+    background: rgba(255, 23, 68, 0.1);
+}
+
+.btn-comentarios {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #FFD700;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.btn-comentarios:hover {
+    background: rgba(255, 215, 0, 0.1);
+    color: #FFA500;
+}
+
+/* ===== ESTILO DOS COMENTÁRIOS ===== */
+.comentario-item {
+    background: rgba(255, 215, 0, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.comentario-autor {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comentario-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 1px solid #FFD700;
+}
+
+.comentario-nome {
+    font-weight: bold;
+    color: #FFD700;
+    margin: 0;
+}
+
+.comentario-data {
+    font-size: 0.75rem;
+    color: #999;
+    margin: 0;
+    margin-left: 8px;
+}
+
+.comentario-conteudo {
+    color: #ddd;
+    margin: 8px 0;
+    word-wrap: break-word;
+}
+
+.btn-deletar-comentario {
+    font-size: 0.75rem;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-deletar-comentario:hover {
+    color: #FF1744;
+}
+
+/* ===== SIDEBAR - FILTROS ===== */
+.card-filters {
+    position: sticky;
+    top: 20px;
+}
+
+.form-control,
+.form-select {
+    color: #ddd;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #2d2d2d;
+    color: #ddd;
+    border-color: #FFA500;
+    box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+}
+
+.form-control::placeholder {
+    color: #999;
+}
+
+/* ===== BADGE DE GÊNERO ===== */
+.genero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* ===== PAGINAÇÃO ===== */
+.pagination {
+    gap: 10px;
+}
+
+.page-link {
+    background: #1a1a1a;
+    color: #FFD700 !important;
+    border: 2px solid #FFD700;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.page-link:hover {
+    background: #FFD700;
+    color: #000 !important;
+    transform: scale(1.1);
+}
+
+.page-item.disabled .page-link {
+    background: rgba(255, 215, 0, 0.1);
+    color: #FFD700;
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-narrativa {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.btn-curtir:active {
+    animation: pulse 0.3s ease;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .card-narrativa .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .badge-genero {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    .card-narrativa .card-footer {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-curtir,
+    .btn-comentarios {
+        width: 100%;
+    }
+
+    .card-filters {
+        position: static;
+    }
+}
+
+/* ===== SEM NARRATIVAS ===== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h5 {
+    color: #FFD700;
+    margin-bottom: 10px;
+}
+
+/* ===== LOADING ===== */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.spinner-border {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== SCROLLBAR CUSTOM ===== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FFD700;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FFA500;
+}

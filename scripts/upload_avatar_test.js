@@ -1,6 +1,7 @@
-const fetch = globalThis.fetch || require('node-fetch');
-const FormData = globalThis.FormData || require('form-data');
+const fetch = require('node-fetch');
+const FormData = require('form-data');
 const sharp = require('sharp');
+const fs = require('fs');
 
 (async () => {
   try {
@@ -24,22 +25,18 @@ const sharp = require('sharp');
     const usuarioId = loginJson.usuario.id;
     console.log('Login OK. Token obtido para usuário id=', usuarioId);
 
-    // 2) Gerar imagem PNG 300x300 com Sharp (cor gradient simples)
+    // 2) Gerar imagem PNG 300x300 com Sharp
     console.log('Gerando imagem com sharp...');
-    const width = 600, height = 600;
-    const imgBuffer = await sharp({
+    const avatarBuffer = await sharp({
       create: {
-        width: 600,
-        height: 600,
+        width: 300,
+        height: 300,
         channels: 4,
         background: { r: 10, g: 14, b: 39, alpha: 1 }
       }
     })
     .png()
     .toBuffer();
-
-    // Redimensionar para 300x300
-    const avatarBuffer = await sharp(imgBuffer).resize(300,300).png().toBuffer();
 
     // 3) Montar FormData e enviar
     const form = new FormData();
@@ -49,7 +46,8 @@ const sharp = require('sharp');
     const uploadRes = await fetch(`${API}/auth/avatar`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        ...form.getHeaders()
       },
       body: form
     });
@@ -68,7 +66,7 @@ const sharp = require('sharp');
       headers: { 'Authorization': `Bearer ${token}` }
     });
     const perfilJson = await perfilRes.json();
-    console.log('Perfil atualizado:', perfilJson.usuario.avatar);
+    console.log('Perfil atualizado com avatar:', perfilJson.usuario.avatar);
 
     process.exit(0);
   } catch (err) {

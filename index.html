@@ -26,6 +26,7 @@
 
     <!-- CSS Externo -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/animacoes.css">
     <title>Lâminas do Destino Sob a Lua</title>
 </head>
 
@@ -230,7 +231,7 @@
                         <div style="text-align: center; margin-top: 1.5rem;">
                             <p style="color: var(--lunar-silver); font-size: 0.9rem;">
                                 Primeira vez aqui?
-                                <a href="#" style="color: var(--lunar-gold); text-decoration: none; font-weight: 600;">
+                                <a href="/register.html" style="color: var(--lunar-gold); text-decoration: none; font-weight: 600;">
                                     Crie sua conta
                                 </a>
                             </p>
@@ -333,41 +334,45 @@
             }
 
             try {
-                const resposta = await fazerRequisicao('/auth/login', 'POST', { email, password });
-
-                if (resposta.sucesso) {
-                    // Salvar token e ID do usuário
-                    localStorage.setItem('token', resposta.usuario.token);
-                    localStorage.setItem('usuarioId', resposta.usuario.id);
-                    localStorage.setItem('usuarioNome', resposta.usuario.nome);
-                    
-                    // Mostrar link do perfil na navbar
-                    document.getElementById('navPerfil').style.display = 'block';
-                    
-                    // Mensagem de sucesso
-                    alert(`✨ Bem-vindo, ${resposta.usuario.nome}! Sua jornada nas Lâminas do Destino começou...`);
-
-                    // Fecha o modal
+                // usar auth.js se disponível
+                if (window.auth) {
+                    const res = await auth.login({ email, senha: password });
+                    alert(`✨ Bem-vindo, ${res.usuario.nome}! Sua jornada nas Lâminas do Destino começou...`);
                     const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-                    if (loginModal) {
-                        loginModal.hide();
-                    }
-
-                    // Limpa o formulário
+                    if (loginModal) loginModal.hide();
                     document.getElementById('loginForm').reset();
-                    
-                    // Redireciona para perfil após 2 segundos
-                    setTimeout(() => {
-                        window.location.href = '/perfil';
-                    }, 2000);
+                    document.getElementById('navPerfil').style.display = 'block';
+                    setTimeout(() => window.location.href = '/perfil', 1200);
                 } else {
-                    alert('❌ ' + resposta.mensagem);
+                    const resposta = await fazerRequisicao('/auth/login', 'POST', { email, senha: password });
+                    if (resposta.sucesso) {
+                        localStorage.setItem('token', resposta.usuario.token);
+                        localStorage.setItem('usuarioId', resposta.usuario.id);
+                        localStorage.setItem('usuarioNome', resposta.usuario.nome);
+                        document.getElementById('navPerfil').style.display = 'block';
+                        alert(`✨ Bem-vindo, ${resposta.usuario.nome}!`);
+                        const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                        if (loginModal) loginModal.hide();
+                        document.getElementById('loginForm').reset();
+                        setTimeout(() => window.location.href = '/perfil', 1200);
+                    }
                 }
             } catch (erro) {
-                // Se falhar, oferecer criação de conta
-                const criar = confirm('Usuário não encontrado. Deseja criar uma conta?');
+                const criar = confirm('Usuário não encontrado ou senha inválida. Deseja criar uma conta?');
                 if (criar) {
-                    await criarConta(email, password);
+                    const nome = prompt('Qual é seu nome?');
+                    if (nome) {
+                        try {
+                            if (window.auth) {
+                                await auth.register({ nome, email, senha: password });
+                                alert('Conta criada e logado com sucesso!');
+                                window.location.href = '/perfil';
+                            } else {
+                                await fazerRequisicao('/auth/registrar', 'POST', { nome, email, senha: password });
+                                alert('Conta criada! Faça login agora.');
+                            }
+                        } catch (e) { alert('Erro ao criar conta: ' + e.message); }
+                    }
                 }
             }
         }
@@ -433,6 +438,7 @@
             });
         });
     </script>
+    <script src="/js/animacoes.js"></script>
 </body>
 
 </html>

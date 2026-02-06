@@ -1,0 +1,11 @@
+console.log('Iniciando...');
+const path = require('path');
+console.log('✓ path carregado');
+require('dotenv').config();
+console.log('✓ dotenv carregado');
+const db = require('../config/database');
+console.log('✓ database carregado');
+const { router, verificarToken } = require('../routes/auth-novo');
+console.log('✓ auth-novo carregado');
+console.log('Todos os módulos carregados com sucesso!');
+process.exit(0);

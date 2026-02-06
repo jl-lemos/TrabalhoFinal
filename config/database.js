@@ -89,6 +89,49 @@ function initializeDatabase() {
         )
     `);
 
+    // Tabela de Comentários
+    db.run(`
+        CREATE TABLE IF NOT EXISTS comentarios (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            narrativa_id INTEGER NOT NULL,
+            usuario_id INTEGER NOT NULL,
+            conteudo TEXT NOT NULL,
+            criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+            atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY(narrativa_id) REFERENCES narrativas(id) ON DELETE CASCADE,
+            FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
+        )
+    `);
+
+    // Tabela de Curtidas (para rastrear quem curtiu o quê)
+    db.run(`
+        CREATE TABLE IF NOT EXISTS curtidas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            narrativa_id INTEGER NOT NULL,
+            usuario_id INTEGER NOT NULL,
+            criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(narrativa_id, usuario_id),
+            FOREIGN KEY(narrativa_id) REFERENCES narrativas(id) ON DELETE CASCADE,
+            FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
+        )
+    `);
+
+    // Tabela de Notificações
+    db.run(`
+        CREATE TABLE IF NOT EXISTS notificacoes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            usuario_id_destino INTEGER NOT NULL,
+            origem_usuario_id INTEGER,
+            tipo TEXT NOT NULL,
+            mensagem TEXT NOT NULL,
+            recurso_id INTEGER,
+            lido INTEGER DEFAULT 0,
+            criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY(usuario_id_destino) REFERENCES usuarios(id),
+            FOREIGN KEY(origem_usuario_id) REFERENCES usuarios(id)
+        )
+    `);
+
     console.log('📦 Banco de dados inicializado com sucesso!');
 }
 

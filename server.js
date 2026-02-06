@@ -29,13 +29,13 @@ const { router: authRoutesNovo } = require('./routes/auth-novo');
 const usuariosRoutes = require('./routes/usuarios');
 const authRoutes = require('./routes/auth');
 const contactRoutes = require('./routes/contact');
-const avatarRoutes = require('./routes/avatar');
+const notificacoesRoutes = require('./routes/notificacoes');
 
 // Usar rotas
-app.use('/api/auth', authRoutesNovo); // Nova autenticação com JWT
+app.use('/api/auth', authRoutesNovo); // Nova autenticação com JWT + avatar
 app.use('/api/usuarios', usuariosRoutes); // Rotas de usuários
 app.use('/api/contact', contactRoutes);
-app.use('/api/auth', avatarRoutes);
+app.use('/api/notificacoes', notificacoesRoutes);
 
 // Rota raiz
 app.get('/', (req, res) => {
